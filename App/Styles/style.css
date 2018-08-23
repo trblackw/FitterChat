@@ -10,6 +10,10 @@ h2 {
   color: #575ed8;
 }
 
+/* #chat-form {
+    
+} */
+
 #main-chat {
   max-width: 600px;
   margin: 30px auto;
@@ -84,3 +88,5 @@ button#send {
      0 0 40px rgba(0, 0, 0, 0.1) inset;
    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
  }
+
+ 
