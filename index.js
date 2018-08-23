@@ -13,7 +13,7 @@ firebase.initializeApp({
 const firebaseDatabase = firebase.database();
 
 const app = express();
-
+ 
 app.set("views", path.join(__dirname, "app/views"));
 
 app.engine("html", require("ejs").renderFile);
@@ -39,7 +39,8 @@ io.on("connection", function(socket) {
   });
   let handshake = socket.handshake;
   let timeStamp = handshake.issued; //unix timestamp
-  let time = handshake.time;
+   let time = handshake.time;
+   
 
   socket.on("chat", function(data) {
     io.sockets.emit("chat", data);
@@ -57,3 +58,11 @@ io.on("connection", function(socket) {
     socket.broadcast.emit("typing", data);
   });
 });
+
+
+io.on('connection', function (socket) {
+   socket.emit('news', { hello: 'world' });
+   socket.on('my other event', function (data) {
+     console.log(data);
+   });
+ });
