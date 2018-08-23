@@ -7,11 +7,24 @@
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
    <link rel="stylesheet" href="/App/Styles/style.css">
-   <title>Document</title>
+   <title>Fitter Chat</title>
 </head>
 
 <body>
-   index.html
+   <div id="main-chat">
+      <div id="chat-window">
+         <div id="output">
+            <div id="feedback">
+
+            </div>
+         </div>
+      </div>
+      <input id="handle" type="text" placeholder="username" class="shadow">
+      <input id="message" type="text" placeholder="message" class="shadow">
+      <button id="send">Send</button>
+   </div>
+
+
    <script src="/App/Controllers/chat.js"></script>
 </body>
 
