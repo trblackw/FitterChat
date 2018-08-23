@@ -1,9 +1,9 @@
 const express = require("express");
-const ejs = require("ejs");
 const path = require("path");
 const app = express();
 
 app.set("views", path.join(__dirname, "app/views"));
+
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
 
