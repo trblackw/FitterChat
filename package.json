@@ -1,0 +1,23 @@
+{
+  "name": "fitterchat",
+  "version": "1.0.0",
+  "description": "Instant messaging app designed for Fitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trblackw/FitterChat.git"
+  },
+  "author": "Tucker Blackwell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trblackw/FitterChat/issues"
+  },
+  "homepage": "https://github.com/trblackw/FitterChat#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
