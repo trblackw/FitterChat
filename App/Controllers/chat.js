@@ -1,5 +1,6 @@
 //establish front-end socket connection
-const socket = io.connect("http://localhost:3000/");
+// const socket = io.connect("http://localhost:3000/");
+const socket = io();
 
 //DOM elements
 const userHandle = document.querySelector("#handle");
