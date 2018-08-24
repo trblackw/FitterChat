@@ -2,12 +2,12 @@
 // const socket = io.connect("http://localhost:3000/");
 const socket = io();
 
-const formatTime = stamp => {
-  let date = new Date(stamp * 1000);
+const formatTime = () => { 
+  let date = new Date();
   let hours = date.getHours();
-  let minutes = "0" + date.getMinutes();
-  let seconds = "0" + date.getSeconds();
-  return `${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+  return `${hours}:${minutes}:${seconds}`;
 };
 
 //DOM elements
@@ -27,7 +27,7 @@ userMessage.addEventListener("keypress", function(e) {
     socket.emit("chat", {
       message: userMessage.value,
       handle: userHandle.value,
-      timeStamp: formatTime(e.timeStamp)
+      timeStamp: formatTime()
     });
   }
 });
@@ -35,7 +35,7 @@ sendButton.addEventListener("click", function(e) {
   socket.emit("chat", {
     message: userMessage.value,
     handle: userHandle.value,
-    timeStamp: formatTime(e.timeStamp)
+    timeStamp: formatTime()
   });
 });
 
@@ -54,7 +54,6 @@ userMessage.addEventListener("keypress", function() {
 
 //Listen for emit events
 socket.on("chat", function(data) {
-  let formattedTime = new Date(data.timeStamp * 1000);
   messageFeedback.innerHTML = "";
   userOutput.innerHTML += `<p><strong>${data.handle}:</strong> ${
     data.message
