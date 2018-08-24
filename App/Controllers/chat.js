@@ -25,11 +25,7 @@ const userHandle = document.querySelector("#handle"),
 
 userMessage.addEventListener("keypress", function(e) {
   if (e.keyCode === 13) {
-    socket.emit("chat", {
-      message: userMessage.value,
-      handle: userHandle.value,
-      timeStamp: formatTime()
-    });
+    userMessage.click();
   }
 });
 
@@ -41,13 +37,9 @@ chatForm.addEventListener("submit", function(e) {
     timeStamp: formatTime()
   });
   userHandle.disabled = true;
+  //clears message after submit
   userMessage.value = "";
 });
-
-//clears message input after submit
-// chatForm.addEventListener("submit", function(e) {
-//   e.preventDefault();
-// });
 
 //text feedback listener
 userMessage.addEventListener("keypress", function() {
