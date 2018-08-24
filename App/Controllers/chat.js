@@ -2,7 +2,7 @@
 // const socket = io.connect("http://localhost:3000/");
 const socket = io();
 
-const formatTime = () => { 
+const formatTime = () => {
   let date = new Date();
   let hours = date.getHours();
   let minutes = date.getMinutes();
@@ -22,6 +22,7 @@ const userHandle = document.querySelector("#handle"),
 //listens for message to be created then sends it to the server
 
 //handle message submission
+
 userMessage.addEventListener("keypress", function(e) {
   if (e.keyCode === 13) {
     socket.emit("chat", {
@@ -31,21 +32,22 @@ userMessage.addEventListener("keypress", function(e) {
     });
   }
 });
-sendButton.addEventListener("click", function(e) {
+
+chatForm.addEventListener("submit", function(e) {
+  e.preventDefault();
   socket.emit("chat", {
     message: userMessage.value,
     handle: userHandle.value,
     timeStamp: formatTime()
   });
-});
-
-//clears message input after submit
-chatForm.addEventListener("submit", function(e) {
-  e.preventDefault();
-  //prevent user from changing user name
   userHandle.disabled = true;
   userMessage.value = "";
 });
+
+//clears message input after submit
+// chatForm.addEventListener("submit", function(e) {
+//   e.preventDefault();
+// });
 
 //text feedback listener
 userMessage.addEventListener("keypress", function() {
