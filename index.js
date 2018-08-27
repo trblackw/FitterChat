@@ -1,16 +1,16 @@
 const express = require("express");
 const path = require("path");
 const socket = require("socket.io");
-const firebase = require("firebase");
+// const firebase = require("firebase");
 
-firebase.initializeApp({
-  apiKey: "AIzaSyDbBoAoyJMYAqAqsfICYlPQi4SVZiTfqzE",
-  authDomain: "fitterchat-96003.firebaseapp.com",
-  projectId: "fitterchat-96003",
-  databaseURL: "https://fitterchat-96003.firebaseio.com"
-});
+// firebase.initializeApp({
+//   apiKey: "AIzaSyDbBoAoyJMYAqAqsfICYlPQi4SVZiTfqzE",
+//   authDomain: "fitterchat-96003.firebaseapp.com",
+//   projectId: "fitterchat-96003",
+//   databaseURL: "https://fitterchat-96003.firebaseio.com"
+// });
 
-const firebaseDatabase = firebase.database();
+// const firebaseDatabase = firebase.database();
 
 const app = express();
 
