@@ -1,7 +1,24 @@
 @import url("https://fonts.googleapis.com/css?family=Play|Work+Sans");
 body {
   font-family: "Work Sans", sans-serif;
-  background: rgb(24, 23, 23);
+  height: 100vh;
+  background: #45484d; /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    #45484d 0%,
+    #000000 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    #45484d 0%,
+    #000000 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #45484d 0%,
+    #000000 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 
 h2 {
@@ -10,9 +27,30 @@ h2 {
   color: #575ed8;
 }
 
-/* #chat-form {
-    
-} */
+/* NAVIGATION */
+
+nav {
+  text-shadow: 1.2px 1.3px 1.4px black;
+  opacity: 0.85;
+  background: #000;
+}
+.nav-link {
+  font-size: 1.2em;
+}
+
+.nav-link:hover {
+  border-bottom: 1px solid hsl(50, 97%, 61%);
+  color: #c7c7c7;
+}
+
+.navbar-brand {
+  font-size: 3rem;
+}
+
+.navbar-toggler {
+  background: white;
+  opacity: 0.5;
+}
 
 #main-chat {
   max-width: 600px;
@@ -26,6 +64,8 @@ h2 {
   height: 400px;
   overflow: auto;
   background: #f9f9f9;
+  border: 2px solid hsl(50, 82%, 62%);
+  border-bottom: none;
 }
 
 #output p {
@@ -59,7 +99,6 @@ input {
   display: block;
   width: 100%;
   background: #fff;
-  border-bottom: 1px solid #eee;
   font-family: "Work Sans", sans-serif;
   font-size: 0.8em;
 }
@@ -76,18 +115,21 @@ button#send {
   border: 1px solid black;
 }
 
+button#send:hover {
+  background: black;
+  color: whitesmoke;
+}
 
 .shadow {
-   position: relative;
-   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
-     0 0 40px rgba(0, 0, 0, 0.1) inset;
-   -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
-     0 0 40px rgba(0, 0, 0, 0.1) inset;
-   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
- }
+  position: relative;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
 
- small#timeStamp {
-    color: rgba(6, 152, 236, 0.644);
-    float: right;
- }
- 
+small#timeStamp {
+  color: rgba(6, 152, 236, 0.644);
+  float: right;
+}
