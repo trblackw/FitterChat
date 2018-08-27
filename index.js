@@ -13,7 +13,7 @@ firebase.initializeApp({
 const firebaseDatabase = firebase.database();
 
 const app = express();
- 
+
 app.set("views", path.join(__dirname, "app/views"));
 
 app.engine("html", require("ejs").renderFile);
@@ -37,21 +37,9 @@ io.on("connection", function(socket) {
   socket.on("disconnect", function() {
     console.log("user disconnected");
   });
-  let handshake = socket.handshake;
-  let timeStamp = handshake.issued; //unix timestamp
-   let time = handshake.time;
-   
 
   socket.on("chat", function(data) {
     io.sockets.emit("chat", data);
-  });
-
-   //currently pointless; attempt at passing time stamp of message; key to this resides in socket.handshake (https://socket.io/docs/server-api/ <== ctrl f 'handshake')
-  socket.on("chat", function(data) {
-    io.sockets.emit({
-      timeStamp,
-      time
-    });
   });
 
   socket.on("typing", function(data) {
@@ -59,10 +47,9 @@ io.on("connection", function(socket) {
   });
 });
 
-
-io.on('connection', function (socket) {
-   socket.emit('news', { hello: 'world' });
-   socket.on('my other event', function (data) {
-     console.log(data);
-   });
- });
+io.on("connection", function(socket) {
+  socket.emit("news", { hello: "world" });
+  socket.on("my other event", function(data) {
+    console.log(data);
+  });
+});
