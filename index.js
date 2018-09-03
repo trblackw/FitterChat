@@ -32,24 +32,46 @@ const server = app.listen(3000, function() {
 //socket config
 const io = socket(server);
 
-io.on("connection", function(socket) {
-  console.log("user made socket connection: ", socket.id);
-  socket.on("disconnect", function() {
-    console.log("user disconnected");
-  });
 
-  socket.on("chat", function(data) {
-    io.sockets.emit("chat", data);
-  });
+//NEED TO REFACTOR CODE BELOW TO WORK WITH NAMESPACE/ROOM FUNCTIONALITY (BOTTOM OF FILE) 
 
-  socket.on("typing", function(data) {
-    socket.broadcast.emit("typing", data);
-  });
-});
+// io.on("connection", function(socket) {
+//   console.log("user made socket connection: ", socket.id);
+//   socket.on("disconnect", function() {
+//     console.log("user disconnected");
+//   });
 
-io.on("connection", function(socket) {
-  socket.emit("news", { hello: "world" });
-  socket.on("my other event", function(data) {
-    console.log(data);
-  });
+//   socket.on("chat", function(data) {
+//     io.sockets.emit("chat", data);
+//   });
+
+//   socket.on("typing", function(data) {
+//     socket.broadcast.emit("typing", data);
+//   });
+// });
+
+// io.on("connection", function(socket) {
+//   socket.emit("news", { hello: "world" });
+//   socket.on("my other event", function(data) {
+//     console.log(data);
+//   });
+// });
+
+//name-space config (attempt #1)
+
+//keep track of each chat room; need to implement chatroom ids
+const fitterChatRooms = [];
+
+//establish fitterChat namespace
+io.of("/fitterChat").on("connection", socket => {
+   socket.emit("welcome", "hello and welcome to the trainer-client messaging system");
+   
+   //create trainer-client room
+   socket.on('joinRoom', room => {
+      socket.join('trainer-client');
+      fitterChatRooms.push(room);
+      //incorporate some sort of id for each room
+      console.log(room);
+      console.log(fitterChatRooms);
+   })
 });
