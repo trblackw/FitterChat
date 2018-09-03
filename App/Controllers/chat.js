@@ -1,6 +1,6 @@
 //establish front-end socket connection
 // const socket = io.connect("http://localhost:3000/");
-const socket = io();
+const io = require("socket.io-client");
 
 const formatTime = () => {
   let date = new Date();
@@ -18,8 +18,22 @@ const userHandle = document.querySelector("#handle"),
   messageFeedback = document.querySelector("#feedback"),
   chatForm = document.querySelector("#chat-form");
 
-//emit socket events
-//listens for message to be created then sends it to the server
+//client namespace config
+let trainerClientChat = io.connect("http://localhost:3000/fitterChat");
+
+trainerClientChat.on("welcome", msg => {
+  console.log(msg);
+});
+
+trainerClientChat.emit("joinRoom", "trainer-client");
+
+trainerClientChat.on("err", err => {
+  console.log("whoops", err);
+});
+
+trainerClientChat.on("success", res => {
+  console.log("successfully joined", res);
+});
 
 //handle message submission
 
