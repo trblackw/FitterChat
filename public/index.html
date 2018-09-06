@@ -40,33 +40,28 @@
    </div>
 </nav> -->
 
-<body>
-   <!-- <div id="main-chat" class="border">
-      <div id="chat-window">
-         <div id="output">
-            <div id="feedback">
+<body class="chat">
+   <div class="chatSidebar">
+      <h3>Users</h3>
+      <div id="users"></div>
+   </div>
 
-            </div>
-         </div>
+   <div class="chatMain">
+      <ol id="messages" class="chatMessages"></ol>
+
+      <div class="chatFooter">
+         <form id="message-form">
+            <input name="message" type="text" placeholder="Message" autofocus autocomplete="off">
+
+            <button class="btn border border-dark">Send</button>
+         </form>
+         <button id="send-location" class="btn border border-dark">Send Location</button>
       </div>
-      <form action="submit" id="chat-form">
-         <input id="handle" type="text" placeholder="username" class="shadow">
-         <input id="message" type="text" placeholder="message" class="shadow">
-         <button id="send">Send</button>
-      </form>
-   </div> -->
-   <p>Welcome to the chat app!</p>
-
-   <ol id="messages"></ol>
 
 
+   </div>
 
-   <form id="message-form">
-      <input name="message" type="text" placeholder="Message">
 
-      <button>Send</button>
-   </form>
-   <button id="send-location" class="btn btn-info mt-3">Send Location</button>
 
 
    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

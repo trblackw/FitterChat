@@ -24,7 +24,7 @@ socket.on("newMessage", message => {
 socket.on("newLocationMessage", message => {
   console.log("newLocationMessage", message);
    let li = document.createElement("li");
-   li.innerHTML = `<a href=${message.url}>Location</a>`
+   li.innerHTML = `${message.from}'s <a href=${message.url} target="_blank">Location</a>`
    messageList.appendChild(li);
 });
 
@@ -35,6 +35,7 @@ messageForm.addEventListener("submit", e => {
     from: "User",
     text: messageInput.value
   });
+   messageInput.value = '';
 });
 
 locationButton.addEventListener("click", () => {
@@ -48,6 +49,7 @@ locationButton.addEventListener("click", () => {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude
       });
+       locationButton.disabled = true;
     },
     () => {
       alert(`oops! we couldn't find you!`);
