@@ -11,7 +11,7 @@
       crossorigin="anonymous">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
 
-   <link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="css/style.css">
    <title>Fitter Chat</title>
 </head>
 <!-- <nav class="navbar navbar-expand-lg sticky-top">
@@ -41,7 +41,7 @@
 </nav> -->
 
 <body>
-   <div id="main-chat" class="border">
+   <!-- <div id="main-chat" class="border">
       <div id="chat-window">
          <div id="output">
             <div id="feedback">
@@ -54,7 +54,18 @@
          <input id="message" type="text" placeholder="message" class="shadow">
          <button id="send">Send</button>
       </form>
-   </div>
+   </div> -->
+   <p class="text-light">Welcome to the chat app!</p>
+
+   <ol id="messages"></ol>
+
+
+
+   <form id="message-form">
+      <input name="message" type="text" placeholder="Message">
+
+      <button>Send</button>
+   </form>
 
 
    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
