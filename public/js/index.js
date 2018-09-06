@@ -1,37 +1,30 @@
 const socket = io();
 
-const formatTime = () => {
-  let date = new Date();
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-  let seconds = date.getSeconds();
-  return `${hours}:${minutes}:${seconds}`;
-};
-
 //DOM elements
-const userHandle = document.querySelector("#handle"),
-  userMessage = document.querySelector("#message"),
-  sendButton = document.querySelector("#send"),
-  userOutput = document.querySelector("#output"),
-  messageFeedback = document.querySelector("#feedback"),
-  chatForm = document.querySelector("#chat-form");
+const messageForm = document.querySelector("#message-form");
+const messageInput = document.querySelector("[name=message]");
 
 socket.on("connect", function() {
   console.log("connected to server");
-
-  socket.emit("createMessage", {
-    from: "jen",
-    text: "heyyyyy"
-  });
 });
 
 socket.on("disconnect", function() {
-  console.log("user disconnected");
+  console.log("user disconnected from server");
 });
 
-socket.on("newMessage", function(data) {
-  console.log(
-    `new message from ${data.from}: ${data.text} (${data.createdAt})`,
-    data
-  );
+socket.on("newMessage", function(message) {
+  console.log("newMessage", message);
+  let li = document.createElement("li");
+  li.innerText = `${message.from}: ${message.text}`;
+  const messageList = document.querySelector("ol#messages");
+  messageList.appendChild(li);
+});
+
+messageForm.addEventListener("submit", e => {
+  e.preventDefault();
+
+  socket.emit("createMessage", {
+    from: "User",
+    text: messageInput.value
+  });
 });
