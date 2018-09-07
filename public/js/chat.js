@@ -32,7 +32,26 @@ const messageList = document.querySelector("ol#messages");
 const locationButton = document.querySelector("#send-location");
 
 socket.on("connect", () => {
-  console.log("connected to server");
+  //vanilla version of jQuery deparam
+  const params = {};
+  const queryString = window.location.search;
+  const decodedQueryString = queryString.replace(
+    /([^?=&]+)(=([^&#]*))?/g,
+    ($0, $1, $2, $3) => {
+      params[$1] = decodeURIComponent($3.replace(/\+/g, "%20"));
+      return queryString;
+    }
+  );
+
+  socket.emit("join", params, err => {
+     if (err) {
+        alert(err);
+        console.log(err);
+      window.location.href = "/";
+     } else {
+        console.log('No errors');
+    }
+  });
 });
 
 socket.on("disconnect", () => {

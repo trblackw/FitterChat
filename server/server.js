@@ -10,6 +10,7 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 const { generateMessage, generateLocationMessage } = require("./utils/message");
+const { isString } = require("./utils/validation");
 app.use(express.static(publicPath));
 
 io.on("connection", socket => {
@@ -24,6 +25,13 @@ io.on("connection", socket => {
     "newMessage",
     generateMessage("Admin", "New user joined")
   );
+
+   socket.on("join", (params, callback) => {
+      if (!isString(params.username) || !isString(params.username)) {
+        callback('username & room required')
+      }
+      callback();
+  });
 
   socket.on("createMessage", message => {
     console.log("createMessage", message);
