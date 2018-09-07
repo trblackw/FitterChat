@@ -10,45 +10,67 @@ const io = socketIO(server);
 
 const { generateMessage, generateLocationMessage } = require("./utils/message");
 const { isString } = require("./utils/validation");
+const { User } = require("./utils/users");
+const users = new User();
 app.use(express.static(publicPath));
 
 io.on("connection", socket => {
   console.log("new user connected");
 
   socket.on("join", (params, callback) => {
-    if (!isString(params.username) || !isString(params.username)) {
-      callback("username & room required");
+    if (!isString(params.username) || !isString(params.room)) {
+      return callback("username & room required");
     }
 
     socket.join(params.room);
+    users.leaveChat(socket.id);
+    users.joinChat(socket.id, params.username, params.room);
 
+    io.to(params.room).emit("updateUsers", users.getUserList(params.room));
     //implement later -- to leave chat socket.leave(params.room)
     socket.emit(
       "newMessage",
       generateMessage("FitterAdmin", "Welcome to FitterChat!")
     );
 
-    socket.broadcast.to(params.room).emit(
-      "newMessage",
-      generateMessage("FitterAdmin", `${params.username} has joined the chat`)
-    );
+    socket.broadcast
+      .to(params.room)
+      .emit(
+        "newMessage",
+        generateMessage("FitterAdmin", `${params.username} has joined the chat`)
+      );
     callback();
   });
 
   socket.on("createMessage", message => {
-    console.log("createMessage", message);
-    io.emit("newMessage", generateMessage(message.from, message.text));
+    const user = users.getUser(socket.id);
+    if (user && isString(message.text)) {
+      io.to(user.room).emit(
+        "newMessage",
+        generateMessage(user.name, message.text)
+      );
+    }
   });
 
   socket.on("createLocationMessage", coords => {
-    io.emit(
-      "newLocationMessage",
-      generateLocationMessage("FitterAdmin", coords.latitude, coords.longitude)
-    );
+     const user = users.getUser(socket.id);
+    if (user) {
+      io.to(user.room).emit(
+        "newLocationMessage",
+        generateLocationMessage(user.name, coords.latitude, coords.longitude)
+      );
+    }
   });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected");
+    const user = users.leaveChat(socket.id);
+    if (user) {
+      io.to(user.room).emit("updateUsers", users.getUserList(user.room));
+      io.to(user.room).emit(
+        "newMessage",
+        generateMessage("FitterAdmin", `${user.name} has left the chat`)
+      );
+    }
   });
 });
 

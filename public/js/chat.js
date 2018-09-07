@@ -26,10 +26,11 @@ const scrollToBottom = () => {
 };
 
 //DOM elements
-const messageForm = document.querySelector("#message-form");
-const messageInput = document.querySelector("[name=message]");
-const messageList = document.querySelector("ol#messages");
-const locationButton = document.querySelector("#send-location");
+const messageForm = document.querySelector("#message-form"),
+  messageInput = document.querySelector("[name=message]"),
+  messageList = document.querySelector("ol#messages"),
+  locationButton = document.querySelector("#send-location"),
+  userList = document.querySelector("#users ul");
 
 socket.on("connect", () => {
   //vanilla version of jQuery deparam
@@ -44,12 +45,12 @@ socket.on("connect", () => {
   );
 
   socket.emit("join", params, err => {
-     if (err) {
-        alert(err);
-        console.log(err);
+    if (err) {
+      alert(err);
+      console.log(err);
       window.location.href = "/";
-     } else {
-        console.log('No errors');
+    } else {
+      console.log("No errors");
     }
   });
 });
@@ -58,8 +59,18 @@ socket.on("disconnect", () => {
   console.log("user disconnected from server");
 });
 
+socket.on("updateUsers", users => {
+  const ul = document.createElement("ul");
+  ul.innerHTML = users.map(user => {
+    return `<li>${user}</li>`;
+  });
+   userList.appendChild(ul);
+});
+socket.on("updateUsers", users => {
+  userList.innerHTML = users.map(user => `<li>${user}</li>`)
+});
+
 socket.on("newMessage", message => {
-  console.log("newMessage", message);
   let li = document.createElement("li");
   li.innerHTML = `
    <div class="messageTitle">
@@ -96,7 +107,6 @@ messageForm.addEventListener("submit", e => {
   e.preventDefault();
 
   socket.emit("createMessage", {
-    from: "User",
     text: messageInput.value
   });
   messageInput.value = "";
