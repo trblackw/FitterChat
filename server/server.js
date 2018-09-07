@@ -1,4 +1,3 @@
-//CLEAN SLATE
 const path = require("path");
 const http = require("http");
 const express = require("express");
@@ -16,21 +15,24 @@ app.use(express.static(publicPath));
 io.on("connection", socket => {
   console.log("new user connected");
 
-  socket.emit(
-    "newMessage",
-    generateMessage("Admin", "Welcome to the chat app")
-  );
+  socket.on("join", (params, callback) => {
+    if (!isString(params.username) || !isString(params.username)) {
+      callback("username & room required");
+    }
 
-  socket.broadcast.emit(
-    "newMessage",
-    generateMessage("Admin", "New user joined")
-  );
+    socket.join(params.room);
 
-   socket.on("join", (params, callback) => {
-      if (!isString(params.username) || !isString(params.username)) {
-        callback('username & room required')
-      }
-      callback();
+    //implement later -- to leave chat socket.leave(params.room)
+    socket.emit(
+      "newMessage",
+      generateMessage("FitterAdmin", "Welcome to FitterChat!")
+    );
+
+    socket.broadcast.to(params.room).emit(
+      "newMessage",
+      generateMessage("FitterAdmin", `${params.username} has joined the chat`)
+    );
+    callback();
   });
 
   socket.on("createMessage", message => {
@@ -41,7 +43,7 @@ io.on("connection", socket => {
   socket.on("createLocationMessage", coords => {
     io.emit(
       "newLocationMessage",
-      generateLocationMessage("Admin", coords.latitude, coords.longitude)
+      generateLocationMessage("FitterAdmin", coords.latitude, coords.longitude)
     );
   });
 
