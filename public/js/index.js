@@ -1,5 +1,30 @@
 const socket = io();
 
+const scrollToBottom = () => {
+  const newMessage = messageList.querySelector("li:last-child");
+  const prevMessage = messageList.querySelector("li:nth-last-child(2)");
+
+  const clientHeight = messageList.clientHeight;
+  const scrollTop = messageList.scrollTop;
+  const scrollHeight = messageList.scrollHeight;
+
+  const newMessageHeight = getComputedStyle(newMessage, null).getPropertyValue(
+    "height"
+  );
+  const lastMessageHeight = getComputedStyle(
+    prevMessage || newMessage,
+    null
+  ).getPropertyValue("height");
+
+  if (
+    clientHeight + scrollTop + newMessageHeight + lastMessageHeight >=
+    scrollHeight
+  ) {
+    messageList.scrollTop = scrollHeight;
+  } else {
+  }
+};
+
 //DOM elements
 const messageForm = document.querySelector("#message-form");
 const messageInput = document.querySelector("[name=message]");
@@ -27,6 +52,7 @@ socket.on("newMessage", message => {
   <hr>
   `;
   messageList.appendChild(li);
+  scrollToBottom();
 });
 
 socket.on("newLocationMessage", message => {
@@ -44,6 +70,7 @@ socket.on("newLocationMessage", message => {
   <hr>
   `;
   messageList.appendChild(li);
+  scrollToBottom();
 });
 
 messageForm.addEventListener("submit", e => {
