@@ -1,5 +1,12 @@
 const socket = io();
 
+//DOM elements
+const messageForm = document.querySelector("#message-form"),
+  messageInput = document.querySelector("[name=message]"),
+  messageList = document.querySelector("ol#messages"),
+  locationButton = document.querySelector("#send-location"),
+  userList = document.querySelector("#users ul");
+
 const scrollToBottom = () => {
   const newMessage = messageList.querySelector("li:last-child");
   const prevMessage = messageList.querySelector("li:nth-last-child(2)");
@@ -9,28 +16,31 @@ const scrollToBottom = () => {
   const scrollHeight = messageList.scrollHeight;
 
   const newMessageHeight = getComputedStyle(newMessage, null).getPropertyValue(
-    "height"
-  );
-  const lastMessageHeight = getComputedStyle(
-    prevMessage || newMessage,
-    null
-  ).getPropertyValue("height");
+  //     "height"
+  //   );
+  //   const lastMessageHeight = getComputedStyle(
+  //     prevMessage || newMessage,
+  //     null
+  //   ).getPropertyValue("height");
+  //   let lastMessageHeight;
+  //   if (prevMessage) {
+  //     lastMessageHeight = getComputedStyle(prevMessage, null).getPropertyValue(
+  //       "height"
+  //     );
+  //   } else {
+  //     lastMessageHeight = newMessage;
+  //   }
 
-  if (
-    clientHeight + scrollTop + newMessageHeight + lastMessageHeight >=
-    scrollHeight
-  ) {
-    messageList.scrollTop = scrollHeight;
-  } else {
+  //   if (
+  //     clientHeight + scrollTop + newMessageHeight + lastMessageHeight >=
+  //     scrollHeight
+  //   ) {
+  //     messageList.scrollTop = scrollHeight;
+  //   }
+  if (clientHeight + scrollTop >= scrollHeight) {
+    console.log("should scroll");
   }
 };
-
-//DOM elements
-const messageForm = document.querySelector("#message-form"),
-  messageInput = document.querySelector("[name=message]"),
-  messageList = document.querySelector("ol#messages"),
-  locationButton = document.querySelector("#send-location"),
-  userList = document.querySelector("#users ul");
 
 socket.on("connect", () => {
   //vanilla version of jQuery deparam
@@ -64,10 +74,10 @@ socket.on("updateUsers", users => {
   ul.innerHTML = users.map(user => {
     return `<li>${user}</li>`;
   });
-   userList.appendChild(ul);
+  userList.appendChild(ul);
 });
 socket.on("updateUsers", users => {
-  userList.innerHTML = users.map(user => `<li>${user}</li>`)
+  userList.innerHTML = users.map(user => `<li>${user}</li>`);
 });
 
 socket.on("newMessage", message => {
