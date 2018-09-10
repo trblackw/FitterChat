@@ -15,30 +15,19 @@ const scrollToBottom = () => {
   const scrollTop = messageList.scrollTop;
   const scrollHeight = messageList.scrollHeight;
 
-  const newMessageHeight = getComputedStyle(newMessage, null).getPropertyValue(
-  //     "height"
-  //   );
-  //   const lastMessageHeight = getComputedStyle(
-  //     prevMessage || newMessage,
-  //     null
-  //   ).getPropertyValue("height");
-  //   let lastMessageHeight;
-  //   if (prevMessage) {
-  //     lastMessageHeight = getComputedStyle(prevMessage, null).getPropertyValue(
-  //       "height"
-  //     );
-  //   } else {
-  //     lastMessageHeight = newMessage;
-  //   }
+  const newMessageHeight = newMessage.offsetHeight;
+  let lastMessageHeight;
+  if (prevMessage) {
+    lastMessageHeight = prevMessage.offsetHeight;
+  } else {
+    lastMessageHeight = newMessageHeight;
+  }
 
-  //   if (
-  //     clientHeight + scrollTop + newMessageHeight + lastMessageHeight >=
-  //     scrollHeight
-  //   ) {
-  //     messageList.scrollTop = scrollHeight;
-  //   }
-  if (clientHeight + scrollTop >= scrollHeight) {
-    console.log("should scroll");
+  if (
+    clientHeight + scrollTop + newMessageHeight + lastMessageHeight >=
+    scrollHeight
+  ) {
+    messageList.scrollTop = scrollHeight;
   }
 };
 
