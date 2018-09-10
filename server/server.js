@@ -38,9 +38,16 @@ io.on("connection", socket => {
       .emit(
         "newMessage",
         generateMessage("FitterAdmin", `${params.username} has joined the chat`)
-      );
+    );
+     
+    io.on('disconnect', socket => {
+      socket.leave(params.room)
+   })
+     
     callback();
   });
+   
+   
 
   socket.on("createMessage", message => {
     const user = users.getUser(socket.id);

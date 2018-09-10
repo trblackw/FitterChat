@@ -5,7 +5,8 @@ const messageForm = document.querySelector("#message-form"),
   messageInput = document.querySelector("[name=message]"),
   messageList = document.querySelector("ol#messages"),
   locationButton = document.querySelector("#send-location"),
-  userList = document.querySelector("#users ul");
+  userList = document.querySelector("#users ul"),
+  signOut = document.querySelector("#signOut");
 
 const scrollToBottom = () => {
   const newMessage = messageList.querySelector("li:last-child");
@@ -51,6 +52,11 @@ socket.on("connect", () => {
     } else {
       console.log("No errors");
     }
+  });
+
+  signOut.addEventListener("click", () => {
+    socket.emit("disconnect");
+    window.location.href = "/";
   });
 });
 
