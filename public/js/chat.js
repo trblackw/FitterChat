@@ -18,11 +18,9 @@ const scrollToBottom = () => {
 
   const newMessageHeight = newMessage.offsetHeight;
   let lastMessageHeight;
-  if (prevMessage) {
-    lastMessageHeight = prevMessage.offsetHeight;
-  } else {
-    lastMessageHeight = newMessageHeight;
-  }
+  return prevMessage
+    ? (lastMessageHeight = prevMessage.offsetHeight)
+    : (lastMessageHeight = newMessageHeight);
 
   if (
     clientHeight + scrollTop + newMessageHeight + lastMessageHeight >=
