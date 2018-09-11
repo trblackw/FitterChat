@@ -89,7 +89,6 @@ socket.on("newMessage", message => {
 });
 
 socket.on("newLocationMessage", message => {
-  console.log("newLocationMessage", message);
   let li = document.createElement("li");
   li.innerHTML = `
    <div class="messageTitle">

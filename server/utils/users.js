@@ -5,7 +5,7 @@ class User {
   //addUser
   joinChat(id, name, room) {
     const user = { id, name, room };
-    this.users.push(user);;
+    this.users.push(user);
     return user;
   }
 
